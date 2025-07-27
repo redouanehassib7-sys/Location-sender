@@ -1,0 +1,30 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html>
+<head>
+  <title>Send Location via WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function sendLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          const mapsLink = `https://maps.google.com/?q=${lat},${lon}`;
+          const phone = "212672840599"; // غيّر الرقم إذا أردت
+          const message = encodeURIComponent(`موقعي الحالي: ${mapsLink}`);
+          const waLink = `https://wa.me/${phone}?text=${message}`;
+          window.location.href = waLink;
+        }, function(error) {
+          alert("لم يتم تحديد الموقع. يرجى السماح بالموقع أو المحاولة لاحقًا.");
+        });
+      } else {
+        alert("المتصفح لا يدعم تحديد الموقع.");
+      }
+    }
+  </script>
+</head>
+<body onload="sendLocation()" style="text-align:center; padding:50px;">
+  <h2>المرجو الانتظار...</h2>
+  <p>يرجى السماح بالوصول إلى الموقع.</p>
+</body>
+</html>
